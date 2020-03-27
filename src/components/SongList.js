@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-
+import uuid from 'uuid/v1';
 
 const SongList = () => {
     let initialStateArray = [
-        { title: 'song uno', id: 1},
-        { title: 'song dosno', id: 2},
-        { title: 'song tres uno', id: 3},
+        { title: 'song uno', id: uuid()},
+        { title: 'song dosno', id: uuid()},
+        { title: 'song tres uno', id: uuid()},
     ]
     // TODO - inline initialState in a minute
     // use State returns 2 values
@@ -14,17 +14,20 @@ const SongList = () => {
     // Use array destructuring to pull those 2 out, and name them
     //  songs: the data stored
     //  setSongs: function to change the stored data
-    const [ songs, setSongs] = useState(
-        initialStateArray
-    )
+    const [ songs, setSongs] = useState(initialStateArray)
     
     // Callback runs every time the component renders or re-renders
     // Could use it to connect to a db or make an api call
-    let useEffectCallback = () => {
-        console.log("useEffect hook ran", )
-    }
-    useEffect(useEffectCallback)
+    // let useEffectCallback = () => {
+    //     console.log("useEffect hook ran", )
+    // }
+    // useEffect(useEffectCallback)
 
+    const addSong = () => {
+        // use the setSongs function to update the state referenced by song variable
+        const id = uuid();
+        setSongs([...songs, { title: `nuevo song - ${id}`, id }])
+    }
 
     return (
         <div classNem="song-list">
@@ -33,6 +36,7 @@ const SongList = () => {
                     return (<li key={song.id}>{song.title}</li>)
                 })}
             </ul>
+            <button onClick={addSong}> Add a song</button>
         </div>
     );
 }

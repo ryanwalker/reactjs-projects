@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import uuid from 'uuid/v1';
+import NewSongFrom from './NewSongForm'
 
 const SongList = () => {
     let initialStateArray = [
@@ -23,20 +24,20 @@ const SongList = () => {
     // }
     // useEffect(useEffectCallback)
 
-    const addSong = () => {
+    const addSong = (title) => {
         // use the setSongs function to update the state referenced by song variable
         const id = uuid();
-        setSongs([...songs, { title: `nuevo song - ${id}`, id }])
+        setSongs([...songs, { title: title, id: id }]) // could do { title, id} es6 shorthand
     }
 
     return (
-        <div classNem="song-list">
+        <div className="song-list">
             <ul>
                 {songs.map(song => {
                     return (<li key={song.id}>{song.title}</li>)
                 })}
             </ul>
-            <button onClick={addSong}> Add a song</button>
+            <NewSongFrom addSong={addSong} />
         </div>
     );
 }
